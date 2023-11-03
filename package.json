@@ -1,0 +1,33 @@
+{
+  "name": "blue-archive-navigator",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs --fix --ignore-path .gitignore",
+    "format": "prettier --write src/"
+  },
+  "dependencies": {
+    "vue": "^3.3.4"
+  },
+  "devDependencies": {
+    "@fancyapps/ui": "^5.0.24",
+    "@rushstack/eslint-patch": "^1.3.3",
+    "@vitejs/plugin-vue": "^4.4.0",
+    "@vue/eslint-config-prettier": "^8.0.0",
+    "@vue/language-plugin-pug": "^1.8.22",
+    "child_process": "^1.0.2",
+    "dayjs": "^1.11.10",
+    "eslint": "^8.49.0",
+    "eslint-plugin-vue": "^9.17.0",
+    "idb": "^7.1.1",
+    "nprogress": "^0.2.0",
+    "prettier": "^3.0.3",
+    "pug": "^3.0.2",
+    "stylus": "^0.60.0",
+    "vite": "^4.4.11",
+    "vue-router": "^4.2.5"
+  }
+}
