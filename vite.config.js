@@ -25,8 +25,6 @@ export default defineConfig({
     }
   },
   define: {
-    global: "globalThis",
-    process: '{ "env": {} }',
     AppInfo: JSON.stringify(AppInfo)
   }
 })
