@@ -1,7 +1,7 @@
 <script setup>
 import { ref } from "vue";
 var AppVersion = ref("Version: " + AppInfo.AppShortVersion);
-var BuildInfo = ref("Build " + AppInfo.AppBuildDate + ", " + AppInfo.AppEnv);
+var BuildInfo = ref("Env: " + AppInfo.AppEnv);
 </script>
 
 <template lang="pug">
