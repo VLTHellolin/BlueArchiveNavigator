@@ -15,12 +15,10 @@ String.prototype.format = function () {
   return res;
 };
 const GetNextBirthday = (birthday) => {
-  let curDate = dayjs(),
-    nxtDate = dayjs();
-  curDate.hour(0).minute(0).second(0).millisecond(0);
-  nxtDate.hour(0).minute(0).second(0).millisecond(0);
-  nxtDate.month(parseInt(birthday.split("/")[0]) - 1).date(parseInt(birthday.split("/")[1]));
-  nxtDate.year(curDate.year() + (nxtDate.month() >= curDate.month() ? 0 : 1));
+  let curDate = dayjs().hour(0).minute(0).second(0).millisecond(0),
+    nxtDate = dayjs().hour(0).minute(0).second(0).millisecond(0);
+  nxtDate = nxtDate.month(parseInt(birthday.split("/")[0]) - 1).date(parseInt(birthday.split("/")[1]));
+  nxtDate = nxtDate.year(curDate.year() + (nxtDate.month() >= curDate.month() ? 0 : 1));
   return nxtDate;
 };
 const GetActivitiesFromGameKee = async () => {
@@ -34,11 +32,9 @@ const GetActivitiesFromGameKee = async () => {
   return req.data;
 };
 const GetActivitiesFromSchaleDB = async () => {
-  let curDate = dayjs(),
-    nxtDate = dayjs();
-  curDate.hour(0).minute(0).second(0).millisecond(0);
-  nxtDate.hour(0).minute(0).second(0).millisecond(0);
-  nxtDate.date(curDate.date() + 7);
+  let curDate = dayjs().hour(0).minute(0).second(0).millisecond(0),
+    nxtDate = dayjs().hour(0).minute(0).second(0).millisecond(0);
+  nxtDate = nxtDate.date(curDate.date() + 7);
   let req = await $.ajax({
     type: "GET",
     url: "https://schale.gg/data/zh/students.min.json"
@@ -125,7 +121,8 @@ const GetImageFromArona = async (name) => {
 
   let req = await $.ajax({
     type: "GET",
-    url: `https://arona.diyigemt.com/api/v1/image?name=${name}`
+    // url: `https://arona.diyigemt.com/api/v1/image?name=${name}`
+    url: `https://pro.hellolin.cf/https://arona.diyigemt.com/api/v1/image?name=${name}`
   });
 
   NProgress.set(0.4);
@@ -144,7 +141,8 @@ const GetImageFromArona = async (name) => {
 
       let newImg = await $.ajax({
         type: "GET",
-        url: `https://arona.cdn.diyigemt.com/image${el.path}`,
+        // url: `https://arona.cdn.diyigemt.com/image${el.path}`,
+        url: `https://pro.hellolin.cf/https://arona.cdn.diyigemt.com/image${el.path}`,
         cache: false,
         xhr: () => {
           var xhr = new XMLHttpRequest();
