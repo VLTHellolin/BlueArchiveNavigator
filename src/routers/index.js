@@ -1,4 +1,4 @@
-import { createRouter, createWebHistory } from "vue-router";
+import { createRouter, createWebHashHistory } from "vue-router";
 
 const PageHome = () => import("../components/PageHome.vue");
 const PageTasks = () => import("../components/PageTasks.vue");
@@ -11,6 +11,6 @@ const MenuRoutes = [
   { path: "/settings", component: PageSettings }
 ];
 export default createRouter({
-  history: createWebHistory(),
+  history: createWebHashHistory(),
   routes: MenuRoutes
 });
