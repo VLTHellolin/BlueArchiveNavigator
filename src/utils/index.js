@@ -128,7 +128,7 @@ const GetActivities = async function () {
 // Get a image from Arona
 const GetImageFromArona = async function (name) {
   NProgress.start();
-  $.toast({message:"获取资源中..."});
+  $.toast({ message: "获取资源中..." });
 
   let req = await $.ajax({
     type: "GET",
@@ -175,7 +175,7 @@ const GetImageFromArona = async function (name) {
     NProgress.done();
     ImgInfo.value = msg;
     ImgSource.value = res;
-    $.toast({class: "success", message:"获取完成。"});
+    $.toast({ class: "success", message: "获取完成。" });
     ShowImgDialog();
   } else if (req.status === 101) {
     // fuzzy
@@ -187,11 +187,11 @@ const GetImageFromArona = async function (name) {
 
     NProgress.done();
     ImgAskInfo.value = res;
-    $.toast({class: "success", message:"获取完成。"});
+    $.toast({ class: "success", message: "获取完成。" });
     ShowAskImgDialog();
   } else {
     console.error("API returned unexpected value");
-    $.toast({class: "warning", message:"出现错误。"});
+    $.toast({ class: "warning", message: "出现错误。" });
     NProgress.done();
   }
 };

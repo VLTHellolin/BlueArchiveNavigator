@@ -1,13 +1,21 @@
 <script setup>
-import { ref } from "vue";
+import { ref, nextTick } from "vue";
 import PageHomeCard from "./PageHomeCard.vue";
 import { Buttons } from "../configs/buttons";
 import { Links } from "../configs/links";
 import Utils from "../utils";
 import { HitokotoContent, HitokotoFrom, ReloadHitokoto } from "../lib/hitokoto";
-import { FilteredActivities, ActivitiesShow, ActivityFilter, ReloadActivities } from "../lib/activities";
+import {
+  FilteredActivities,
+  ActivitiesShow,
+  ActivityFilter,
+  ReloadActivities
+} from "../lib/activities";
 var InputQuery = ref("");
-
+// Dropdown
+nextTick(() => {
+  $(".ui.dropdown").dropdown();
+});
 </script>
 <template lang="pug">
 .ui.stackable.relaxed.grid
