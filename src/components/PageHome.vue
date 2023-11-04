@@ -1,18 +1,13 @@
 <script setup>
 import { ref } from "vue";
 import PageHomeCard from "./PageHomeCard.vue";
-import Utils from "../utils";
 import { Buttons } from "../configs/buttons";
 import { Links } from "../configs/links";
-import {
-  filteredActivities,
-  activitiesShow,
-  activityFilter,
-  ReloadActivities
-} from "../helpers/home";
-import { hitokotoContent, hitokotoFrom, ReloadHitokoto } from "../helpers/hitokoto";
-import { watch } from "vue";
+import Utils from "../utils";
+import { HitokotoContent, HitokotoFrom, ReloadHitokoto } from "../lib/hitokoto";
+import { FilteredActivities, ActivitiesShow, ActivityFilter, ReloadActivities } from "../lib/activities";
 var InputQuery = ref("");
+
 </script>
 <template lang="pug">
 .ui.stackable.relaxed.grid
@@ -60,9 +55,9 @@ var InputQuery = ref("");
       template(#header)
         i.icon.comment.alternate
         | ヒトコト
-      #hitokoto_container {{ hitokotoContent }}
+      #hitokoto_container {{ HitokotoContent }}
       #hitokoto_from
-        span.ui.small.grey.text —— {{ hitokotoFrom }}
+        span.ui.small.grey.text —— {{ HitokotoFrom }}
         | 
         button.mini.ui.tertiary.button(@click="ReloadHitokoto()")
           i.icon.redo
@@ -71,7 +66,7 @@ var InputQuery = ref("");
       template(#header)
         i.icon.calendar.alternate
         | 活动
-      select.ui.fluid.selection.dropdown(v-model="activityFilter")
+      select.ui.fluid.selection.dropdown(v-model="ActivityFilter")
         template(v-for="(it, num) in Utils.ServerID")
           option(:value="num") {{ it }}
       br
@@ -81,8 +76,8 @@ var InputQuery = ref("");
           i.icon.redo
           | 重新加载
       .ui.connected.small.feed
-        template(v-if="activitiesShow")
-          template(v-for="it in filteredActivities")
+        template(v-if="ActivitiesShow")
+          template(v-for="it in FilteredActivities")
             .event
               .label
                 i(v-if="it.current").large.middle.aligned.icon.green.angle.double.right
@@ -119,7 +114,7 @@ var InputQuery = ref("");
       |
       | 查看源代码、提出 issue 和 pull request 等。本项目以
       |
-      a(href="https://github.com/hellolin-oi/BlueArchiveNavigator/LICENSE" target="_blank") MPLv2
+      a(href="https://github.com/hellolin-oi/BlueArchiveNavigator/blob/main/LICENSE" target="_blank") MPLv2
       |
       | 作为许可证。
 </template>

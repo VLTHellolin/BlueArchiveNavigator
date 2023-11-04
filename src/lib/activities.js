@@ -1,25 +1,25 @@
 import { ref, nextTick, watch } from "vue";
 import Utils from "../utils";
 
-export var activities = [],
-  filteredActivities = [],
-  activitiesShow = ref(false),
-  activityFilter = ref(0);
+export var Activities = [],
+  FilteredActivities = [],
+  ActivitiesShow = ref(false),
+  ActivityFilter = ref(0);
 Utils.TryGetItemFromDB("server", 0).then((e) => {
-  activityFilter.value = e;
+  ActivityFilter.value = e;
 });
 export const ReloadActivitiesEl = () => {
-  activitiesShow.value = false;
+  ActivitiesShow.value = false;
   nextTick(() => {
-    activitiesShow.value = true;
+    ActivitiesShow.value = true;
   });
 };
 export const ReloadActivities = () => {
   Utils.GetActivities().then((e) => {
-    activities = e;
-    filteredActivities = activities.filter((e) => {
-      if (activityFilter.value === 3) return true;
-      return e.server === activityFilter.value || e.server === 3;
+    Activities = e;
+    FilteredActivities = Activities.filter((e) => {
+      if (ActivityFilter.value === 3) return true;
+      return e.server === ActivityFilter.value || e.server === 3;
     });
     ReloadActivitiesEl();
   });
@@ -27,9 +27,9 @@ export const ReloadActivities = () => {
 
 ReloadActivities();
 
-watch(activityFilter, async (fil) => {
+watch(ActivityFilter, async (fil) => {
   Utils.SetItemToDB("server", fil);
-  filteredActivities = activities.filter((e) => {
+  FilteredActivities = Activities.filter((e) => {
     if (fil === 3) return true;
     return e.server === fil || e.server === 3;
   });

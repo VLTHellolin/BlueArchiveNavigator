@@ -2,11 +2,13 @@ import { openDB } from "idb";
 import dayjs from "dayjs";
 import NProgress from "nprogress";
 import "nprogress/nprogress.css";
-import { ImgSource, ImgInfo, ImgAskInfo, ShowImgDialog, ShowAskImgDialog } from "../helpers/image";
+import { ImgSource, ImgInfo, ImgAskInfo, ShowImgDialog, ShowAskImgDialog } from "../lib/image";
 
+// Constants
 const DBName = "BANavDB";
 const ServerID = ["日服", "国际服", "国服", "所有区服"]; // JP, Global, CN, All
 
+// Formatting string
 String.prototype.format = function () {
   let res = this;
   for (let arg in arguments) {
@@ -14,7 +16,9 @@ String.prototype.format = function () {
   }
   return res;
 };
-const GetNextBirthday = (birthday) => {
+
+// Get a student's next birthday
+const GetNextBirthday = function (birthday) {
   let curDate = dayjs().hour(0).minute(0).second(0).millisecond(0),
     nxtDate = dayjs().hour(0).minute(0).second(0).millisecond(0);
   nxtDate = nxtDate
@@ -23,7 +27,45 @@ const GetNextBirthday = (birthday) => {
   nxtDate = nxtDate.year(curDate.year() + (nxtDate.month() >= curDate.month() ? 0 : 1));
   return nxtDate;
 };
-const GetActivitiesFromGameKee = async () => {
+
+// Get a string representing a time range
+const GetTimeRangeString = function (st, ed) {
+  // milli
+  return dayjs(st).format("MM/DD HH:mm") + " ~ " + dayjs(ed).format("MM/DD HH:mm");
+};
+
+// IndexedDB
+const SetItemToDB = async function (key, data) {
+  const db = await openDB(DBName, 2, {
+    upgrade(db) {
+      if (!db.objectStoreNames.contains("main")) {
+        // init
+        db.createObjectStore("main");
+      }
+    }
+  });
+  const obj = db.transaction("main", "readwrite").objectStore("main");
+  await obj.put(data, key);
+};
+const GetItemFromDB = async function (key) {
+  const db = await openDB(DBName);
+  if (!db.objectStoreNames.contains("main")) {
+    // try to get before init
+    return undefined;
+  }
+  return db.transaction("main", "readonly").objectStore("main").get(key);
+};
+const TryGetItemFromDB = async function (key, data) {
+  let res = await GetItemFromDB(key);
+  if (res === undefined) {
+    await SetItemToDB(key, data);
+    res = data;
+  }
+  return res;
+};
+
+// Get Activities
+const GetActivitiesFromGameKee = async function () {
   let req = await $.ajax({
     type: "GET",
     url: `https://ba.gamekee.com/v1/activity/query?active_at=${dayjs().unix()}`,
@@ -33,7 +75,7 @@ const GetActivitiesFromGameKee = async () => {
   });
   return req.data;
 };
-const GetActivitiesFromSchaleDB = async () => {
+const GetActivitiesFromSchaleDB = async function () {
   let curDate = dayjs().hour(0).minute(0).second(0).millisecond(0),
     nxtDate = dayjs().hour(0).minute(0).second(0).millisecond(0);
   nxtDate = nxtDate.date(curDate.date() + 7);
@@ -49,42 +91,7 @@ const GetActivitiesFromSchaleDB = async () => {
   });
   return res;
 };
-
-const SetItemToDB = async (key, data) => {
-  const db = await openDB(DBName, 2, {
-    upgrade(db) {
-      if (!db.objectStoreNames.contains("main")) {
-        // init
-        db.createObjectStore("main");
-      }
-    }
-  });
-  const obj = db.transaction("main", "readwrite").objectStore("main");
-  await obj.put(data, key);
-};
-const GetItemFromDB = async (key) => {
-  const db = await openDB(DBName);
-  if (!db.objectStoreNames.contains("main")) {
-    // try to get before init
-    return undefined;
-  }
-  return db.transaction("main", "readonly").objectStore("main").get(key);
-};
-const TryGetItemFromDB = async (key, data) => {
-  let res = await GetItemFromDB(key);
-  if (res === undefined) {
-    await SetItemToDB(key, data);
-    res = data;
-  }
-  return res;
-};
-
-const GetTimeRangeString = (st, ed) => {
-  // milli
-  return dayjs(st).format("MM/DD HH:mm") + " ~ " + dayjs(ed).format("MM/DD HH:mm");
-};
-
-const GetActivities = async () => {
+const GetActivities = async function () {
   let activity = await GetActivitiesFromGameKee(),
     birthday = await GetActivitiesFromSchaleDB(),
     res = [];
@@ -118,8 +125,10 @@ const GetActivities = async () => {
   return res;
 };
 
-const GetImageFromArona = async (name) => {
+// Get a image from Arona
+const GetImageFromArona = async function (name) {
   NProgress.start();
+  $.toast({message:"获取资源中..."});
 
   let req = await $.ajax({
     type: "GET",
@@ -166,6 +175,7 @@ const GetImageFromArona = async (name) => {
     NProgress.done();
     ImgInfo.value = msg;
     ImgSource.value = res;
+    $.toast({class: "success", message:"获取完成。"});
     ShowImgDialog();
   } else if (req.status === 101) {
     // fuzzy
@@ -177,21 +187,28 @@ const GetImageFromArona = async (name) => {
 
     NProgress.done();
     ImgAskInfo.value = res;
+    $.toast({class: "success", message:"获取完成。"});
     ShowAskImgDialog();
   } else {
     console.error("API returned unexpected value");
+    $.toast({class: "warning", message:"出现错误。"});
     NProgress.done();
   }
 };
 
+// Check if we are in a dev env
+const IsInDevelopment = function () {
+  return AppInfo.AppEnv === "development";
+};
+
 var Utils = {
   ServerID,
+  GetTimeRangeString,
   SetItemToDB,
   GetItemFromDB,
   TryGetItemFromDB,
-  GetTimeRangeString,
   GetActivities,
-  GetImageFromArona
+  GetImageFromArona,
+  IsInDevelopment
 };
-
 export default Utils;

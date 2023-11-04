@@ -1,6 +1,6 @@
 <script setup>
-import { ImgAskInfo } from "../helpers/image.js";
 import Utils from "../utils";
+import { ImgAskInfo } from "../lib/image.js";
 </script>
 
 <template lang="pug">

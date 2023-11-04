@@ -1,7 +1,7 @@
 <script setup>
-import { ImgSource, ImgInfo } from "../helpers/image";
 import { Fancybox } from "@fancyapps/ui";
 import "@fancyapps/ui/dist/fancybox/fancybox.css";
+import { ImgInfo, ImgSource } from "../lib/image";
 Fancybox.bind("[data-fancybox]", {
   contentClick: "iterateZoom",
   Images: {

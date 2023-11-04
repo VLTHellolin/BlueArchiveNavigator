@@ -7,8 +7,7 @@ var HardMode = ref(false);
 
 <template lang="pug">
 .ui.segment
-  h3.ui.header
-    | 任务&nbsp;&nbsp;
+  .ui.center.aligned.basic.segment
     .ui.slider.checkbox
       input(type="checkbox" name="hard" v-model="HardMode")
       label Normal / Hard 切换
