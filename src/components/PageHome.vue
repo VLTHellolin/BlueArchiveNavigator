@@ -18,8 +18,13 @@ var InputQuery = ref("");
 .ui.stackable.relaxed.grid
   .ten.wide.column
     .ui.info.message
+      i.icon.close
       .header 重要
       p 有些请求你发送之后，页面看起来没反应（其实有上面的进度条），此时不要重复发送请求。
+    .ui.warning.message
+      i.icon.close
+      .header 我啥都看不到啊？
+      p 看不到图片的话，别急，前往右上角设置清理缓存再试。
     PageHomeCard
       template(#header)
         i.icon.layer.group
@@ -50,32 +55,6 @@ var InputQuery = ref("");
               .summary
                 a(:href="it.link" target="_blank") {{ it.name }}
               .extra.text {{ it.description }}
-    PageHomeCard
-      template(#header)
-        i.icon.info
-        | 关于
-      | Blue Archive Navigator 是一个全新的碧蓝档案工具前端壳子。
-      br
-      | 图片和其他资源来自
-      | 
-      a(href="https://arona.diyigemt.com" target="_blank") arona
-      | 、
-      a(href="https://schale.gg" target="_blank") Schale DB
-      | 
-      | 以及
-      | 
-      a(href="https://ba.gamekee.com" target="_blank") GameKee
-      | 。在此提出感谢。
-      br
-      | Blue Archive Navigator 是一个开源项目。你可以在
-      |
-      a(href="https://github.com/hellolin-oi/BlueArchiveNavigator" target="_blank") 这里
-      |
-      | 查看源代码、提出 issue 和 pull request 等。本项目以
-      |
-      a(href="https://github.com/hellolin-oi/BlueArchiveNavigator/LICENSE" target="_blank") MPLv2
-      |
-      | 作为许可证。
   .six.wide.column
     PageHomeCard
       template(#header)
@@ -117,4 +96,30 @@ var InputQuery = ref("");
                   | {{ Utils.GetTimeRangeString(it.start, it.end) }}
         template(v-else)
           .ui.loading.segment
+    PageHomeCard
+      template(#header)
+        i.icon.info
+        | 关于
+      | Blue Archive Navigator 是一个全新的碧蓝档案工具前端壳子。
+      br
+      | 图片和其他资源来自
+      | 
+      a(href="https://arona.diyigemt.com" target="_blank") arona
+      | 、
+      a(href="https://schale.gg" target="_blank") Schale DB
+      | 
+      | 以及
+      | 
+      a(href="https://ba.gamekee.com" target="_blank") GameKee
+      | 。在此提出感谢。
+      br
+      | Blue Archive Navigator 是一个开源项目。你可以在
+      |
+      a(href="https://github.com/hellolin-oi/BlueArchiveNavigator" target="_blank") 这里
+      |
+      | 查看源代码、提出 issue 和 pull request 等。本项目以
+      |
+      a(href="https://github.com/hellolin-oi/BlueArchiveNavigator/LICENSE" target="_blank") MPLv2
+      |
+      | 作为许可证。
 </template>

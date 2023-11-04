@@ -17,7 +17,9 @@ String.prototype.format = function () {
 const GetNextBirthday = (birthday) => {
   let curDate = dayjs().hour(0).minute(0).second(0).millisecond(0),
     nxtDate = dayjs().hour(0).minute(0).second(0).millisecond(0);
-  nxtDate = nxtDate.month(parseInt(birthday.split("/")[0]) - 1).date(parseInt(birthday.split("/")[1]));
+  nxtDate = nxtDate
+    .month(parseInt(birthday.split("/")[0]) - 1)
+    .date(parseInt(birthday.split("/")[1]));
   nxtDate = nxtDate.year(curDate.year() + (nxtDate.month() >= curDate.month() ? 0 : 1));
   return nxtDate;
 };
