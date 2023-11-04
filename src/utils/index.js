@@ -150,17 +150,29 @@ const GetImageFromArona = async function (name) {
       msg = "已通过服务器更新。";
       localData[el.name] = { hash: undefined, img: undefined };
 
-      let newImg = await $.ajax({
-        type: "GET",
-        // url: `https://arona.cdn.diyigemt.com/image${el.path}`,
-        url: `https://pro.hellolin.cf/https://arona.cdn.diyigemt.com/image${el.path}`,
-        cache: false,
-        xhr: () => {
-          var xhr = new XMLHttpRequest();
-          xhr.responseType = "blob";
-          return xhr;
-        }
-      });
+      let newImg = new Blob();
+      let maxTries = 3;
+
+      while (newImg.size === 0 && maxTries) {
+        newImg = await $.ajax({
+          type: "GET",
+          // url: `https://arona.cdn.diyigemt.com/image${el.path}`,
+          url: `https://pro.hellolin.cf/https://arona.cdn.diyigemt.com/image${el.path}`,
+          cache: false,
+          xhr: () => {
+            var xhr = new XMLHttpRequest();
+            xhr.responseType = "blob";
+            return xhr;
+          }
+        });
+        --maxTries;
+      }
+      if (newImg.size === 0) {
+        console.error("API returned unexpected value");
+        $.toast({ class: "warning", message: "出现错误。" });
+        NProgress.done();
+        return;
+      }
 
       NProgress.set(0.8);
 
