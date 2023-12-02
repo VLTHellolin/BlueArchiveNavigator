@@ -20,14 +20,9 @@ nextTick(() => {
 <template lang="pug">
 .ui.stackable.relaxed.grid
   .ten.wide.column
-    .ui.info.message
-      i.icon.close
-      .header 重要
-      p 有些请求你发送之后，页面看起来没反应（其实有上面的进度条），此时不要重复发送请求。
     .ui.warning.message
-      i.icon.close
-      .header 我啥都看不到啊？
-      p 看不到图片的话，别急，前往右上角设置清理缓存再试。
+      .header 重要
+      p 看不到图片的话，前往右上角设置清理缓存再试。
     PageHomeCard
       template(#header)
         i.icon.layer.group

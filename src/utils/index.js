@@ -125,7 +125,7 @@ const GetActivities = async function () {
   return res;
 };
 
-// Get a image from Arona
+// Get an image from Arona
 const GetImageFromArona = async function (name) {
   NProgress.start();
   $.toast({ message: "获取资源中..." });
@@ -133,12 +133,12 @@ const GetImageFromArona = async function (name) {
   let req = await $.ajax({
     type: "GET",
     // url: `https://arona.diyigemt.com/api/v1/image?name=${name}`
-    url: `https://pro.hellolin.cf/https://arona.diyigemt.com/api/v1/image?name=${name}`
+    url: `https://pro.hellolin.cf/https://arona.diyigemt.com/api/v2/image?name=${name}`
   });
 
   NProgress.set(0.4);
 
-  if (req.status === 200) {
+  if (req.code === 200) {
     // ok
     let localData = await TryGetItemFromDB("image", {}),
       msg = "已通过本地缓存加载。";
@@ -157,7 +157,7 @@ const GetImageFromArona = async function (name) {
         newImg = await $.ajax({
           type: "GET",
           // url: `https://arona.cdn.diyigemt.com/image${el.path}`,
-          url: `https://pro.hellolin.cf/https://arona.cdn.diyigemt.com/image${el.path}`,
+          url: `https://pro.hellolin.cf/https://arona.cdn.diyigemt.com/image${el.content}`,
           cache: false,
           xhr: () => {
             var xhr = new XMLHttpRequest();
@@ -189,7 +189,7 @@ const GetImageFromArona = async function (name) {
     ImgSource.value = res;
     $.toast({ class: "success", message: "获取完成。" });
     ShowImgDialog();
-  } else if (req.status === 101) {
+  } else if (req.code === 101) {
     // fuzzy
     let res = [];
 
