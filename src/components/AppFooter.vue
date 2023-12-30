@@ -9,7 +9,7 @@ var BuildInfo = ref("Env: " + AppInfo.AppEnv);
   div
     | Made with 💖 by
     | 
-    a(href="https://hellolin.cf" target="_blank") hellolin
+    a(href="https://hellolin.top" target="_blank") hellolin
     | .
   div
     code#footer_version
