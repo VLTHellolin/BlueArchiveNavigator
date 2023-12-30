@@ -10,6 +10,7 @@ export const Buttons = [
   ],
   [
     { name: "国际服总力", important: true },
+    { name: "国际服大决战", important: true },
     { name: "国际服竞技场", important: true },
     { name: "国际服火力演习", important: true },
     { name: "国际服未来视", important: true },
