@@ -113,11 +113,11 @@ nextTick(() => {
       br
       | Blue Archive Navigator 是一个开源项目。你可以在
       |
-      a(href="https://github.com/hellolin-oi/BlueArchiveNavigator" target="_blank") 这里
+      a(href="https://github.com/VLTHellolin/BlueArchiveNavigator" target="_blank") 这里
       |
       | 查看源代码、提出 issue 和 pull request 等。本项目以
       |
-      a(href="https://github.com/hellolin-oi/BlueArchiveNavigator/blob/main/LICENSE" target="_blank") MPLv2
+      a(href="https://github.com/VLTHellolin/BlueArchiveNavigator/blob/main/LICENSE" target="_blank") MPLv2
       |
       | 作为许可证。
 </template>
