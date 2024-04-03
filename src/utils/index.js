@@ -133,7 +133,8 @@ const GetImageFromArona = async function (name) {
   let req = await $.ajax({
     type: "GET",
     // url: `https://arona.diyigemt.com/api/v1/image?name=${name}`
-    url: `https://cors.hellolinoi.workers.dev/https://arona.diyigemt.com/api/v2/image?name=${name}`
+    // url: `https://cors.hellolinoi.workers.dev/https://arona.diyigemt.com/api/v2/image?name=${name}`
+    url: `https://arona.diyigemt.com/api/v2/image?name=${name}`
   });
 
   NProgress.set(0.4);
@@ -157,7 +158,8 @@ const GetImageFromArona = async function (name) {
         newImg = await $.ajax({
           type: "GET",
           // url: `https://arona.cdn.diyigemt.com/image${el.path}`,
-          url: `https://cors.hellolinoi.workers.dev/https://arona.cdn.diyigemt.com/image${el.content}`,
+          // url: `https://cors.hellolinoi.workers.dev/https://arona.cdn.diyigemt.com/image${el.content}`,
+          url: `https://arona.cdn.diyigemt.com/image${el.content}`,
           cache: false,
           xhr: () => {
             var xhr = new XMLHttpRequest();
