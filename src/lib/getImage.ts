@@ -3,8 +3,8 @@ import { type AronaResponse } from './types';
 import axios from 'axios';
 import { useToast } from 'vue-fomantic-ui';
 import { useI18n } from 'vue-i18n';
-import { showImageDialog } from '@/components/ImageDialog.vue';
-import { showOptionsDialog } from '@/components/OptionsDialog.vue';
+import { showImageDialog } from '@/components/showImageDialog';
+import { showOptionsDialog } from '@/components/showOptionsDialog';
 
 const AronaAPI = 'https://arona.diyigemt.com/api/v2/image';
 const AronaImg = 'https://arona.cdn.diyigemt.com/image';

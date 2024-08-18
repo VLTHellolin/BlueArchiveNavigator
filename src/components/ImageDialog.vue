@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, watch } from 'vue';
+import { isDialogShow, imageSource } from './showImageDialog';
 import {
   Button,
   Icon,
@@ -19,18 +19,6 @@ Fancybox.bind('[data-fancybox]', {
     },
   },
 });
-
-const isDialogShow = ref(false);
-const imageSource = ref('');
-export async function showImageDialog(imgSrc: string) {
-  imageSource.value = imgSrc;
-  isDialogShow.value = true;
-  return new Promise<void>((resolve) => {
-    watch(isDialogShow, () => {
-      resolve();
-    });
-  });
-}
 </script>
 
 <template lang="pug">
