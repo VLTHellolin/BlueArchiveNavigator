@@ -1,0 +1,8 @@
+{
+  "menu": {
+    "home": "Home",
+    "tasks": "Tasks",
+    "students": "Students",
+    "settings": "Settings"
+  }
+}

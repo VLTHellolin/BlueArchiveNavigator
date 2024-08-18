@@ -1,0 +1,8 @@
+{
+  "menu": {
+    "home": "主页",
+    "tasks": "任务",
+    "students": "学生",
+    "settings": "设置"
+  }
+}
